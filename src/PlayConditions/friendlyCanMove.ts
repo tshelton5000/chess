@@ -5,6 +5,14 @@ import {TileConfig} from '../components/Board/Board';
 import {coords} from './inCheck';
 
 function friendlyCanMove(board: TileConfig[][], whiteTurn: boolean){
+  let friendlyCoords: coords[] = friendlyFinder(board, whiteTurn);
+
+  return moveNoCheck(board, whiteTurn, friendlyCoords);
+}
+
+export default friendlyCanMove;
+
+export function friendlyFinder(board: TileConfig[][], whiteTurn: boolean){
   let friendlyCoords: coords[] = [];
   board.forEach((row: TileConfig[], y: number) => {
     row.forEach((tile: TileConfig, x: number) => {
@@ -14,6 +22,10 @@ function friendlyCanMove(board: TileConfig[][], whiteTurn: boolean){
     })
   })
 
+  return friendlyCoords;
+}
+
+export function moveNoCheck(board: TileConfig[][], whiteTurn: boolean, friendlyCoords: coords[]){
   let canMove: boolean = false;
   friendlyCoords.forEach(pieceCoords => {
     board.forEach((row: TileConfig[], y: number) => {
@@ -32,44 +44,3 @@ function friendlyCanMove(board: TileConfig[][], whiteTurn: boolean){
   })
   return canMove;
 }
-
-export default friendlyCanMove;
-
-// kingCanMove(board, whiteTurn){
-  //   let kingX;
-  //   let kingY;
-  //   board.forEach((row, y) => {
-  //     row.forEach((tile, x) => {
-  //       let playerColor = whiteTurn ? 'white' : 'black';
-  //       if (tile.type === 'king' && tile.color === playerColor){
-  //         kingX = x;
-  //         kingY = y;
-  //       }
-  //     })
-  //   })
-
-  //   let possibleMoves = [];
-  //   board.forEach((row, y) => {
-  //     row.forEach((tile, x) => {
-  //       if (pieceCollection.king.canMove(board, kingX, kingY, x, y, whiteTurn)){
-  //         possibleMoves.push({x: x, y: y})
-  //       }
-  //     })
-  //   })
-    
-  //   let canMove = false;
-  //   possibleMoves.forEach(destination => {
-  //     let _board = this.boardCopier(board);
-  //     _board[destination.y][destination.x] = _board[kingY][kingX];
-  //     _board[kingY][kingX] = {"type": "empty", "color": "neutral"};
-  //     if (!this.inCheck(_board, whiteTurn)){
-  //       canMove = true;
-  //     }
-  //   })
-
-  //   return (canMove && possibleMoves.length > 0);
-  // }
-
-  // pieceChooser(type){
-  //   return pieceCollection[type];
-  // }

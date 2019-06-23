@@ -6,7 +6,9 @@ import Tile from './Tile/Tile';
 import inCheck from '../../PlayConditions/inCheck';
 import friendlyCanMove from '../../PlayConditions/friendlyCanMove';
 import initBoard from '../initConfig/board.json';
-// import boardTest from '../initConfig/boardTest.json';
+import boardTest from '../initConfig/boardTest.json';
+import blackCheckBoard from '../../testBoards/blackCheckBoard.json';
+import midplayBoard from '../../testBoards/midplayBoard.json';
 
 export interface TileConfig{
   type: string;
@@ -14,7 +16,7 @@ export interface TileConfig{
 }
 
 const Board = () => {
-  const [board, setBoard] = useState(initBoard);
+  const [board, setBoard] = useState(midplayBoard);
   const [firstClick, setFirstClick] = useState();
   const [secondClick, setSecondClick] = useState();
   const [whiteTurn, setWhiteTurn] = useState(true);

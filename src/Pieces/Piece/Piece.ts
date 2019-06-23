@@ -8,7 +8,7 @@ export interface PieceInterface {
   whitePic: string;
   blackPic: string;
   returnPic(color: string): string;
-  isClear(board: TileConfig[][], y: number, x: number): boolean; //board has any type
+  isClear(board: TileConfig[][], y: number, x: number): boolean;
   isEnemy(board: TileConfig[][], y: number, x: number, whiteTurn: boolean): boolean;
   colorTurn(board: TileConfig[][], y: number, x: number, whiteTurn: boolean): boolean;
   cardinalMove(board: TileConfig[][], x1: number, y1: number, x2: number, y2: number): boolean;
@@ -27,7 +27,7 @@ const Piece: PieceConstructor = class Piece implements PieceInterface{
     return color === 'white' ? this.whitePic : this.blackPic;
   }
 
-  isClear(board: TileConfig[][], y: number, x: number): boolean { //board has any type
+  isClear(board: TileConfig[][], y: number, x: number): boolean {
     return board[y][x].color === 'neutral';
   }
 

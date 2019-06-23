@@ -6,10 +6,19 @@ export interface coords {
   y: number
 }
 
-function inCheck(board: TileConfig[][], whiteTurn: boolean): boolean{
+export default function inCheck(board: TileConfig[][], whiteTurn: boolean): boolean{
+  let enemyArr: coords[];
   let kingX: number;
   let kingY: number;
+  [enemyArr, kingX, kingY] = enemiesFinder(board, whiteTurn);
+
+  return enemiesCanCheck(board, enemyArr, kingX, kingY, whiteTurn);
+}
+
+export function enemiesFinder(board: TileConfig[][], whiteTurn: boolean): [coords[], number, number]{
   let enemyArr: coords[] = [];
+  let kingX: number = -1;
+  let kingY: number = -1;
   let [kingColor, enemyColor]: [string, string] = whiteTurn === true 
       ? ['white', 'black'] 
       : ['black', 'white'];
@@ -24,7 +33,11 @@ function inCheck(board: TileConfig[][], whiteTurn: boolean): boolean{
       }
     })
   })
-  
+
+  return [enemyArr, kingX, kingY];
+}
+
+export function enemiesCanCheck(board: TileConfig[][], enemyArr: coords[], kingX: number, kingY: number, whiteTurn: boolean): boolean{
   let checkBool: boolean = false;
   enemyArr.forEach(enemy => {
     if (pieceChooser(board[enemy.y][enemy.x].type)
@@ -34,5 +47,3 @@ function inCheck(board: TileConfig[][], whiteTurn: boolean): boolean{
   })
   return checkBool;
 }
-
-export default inCheck;
