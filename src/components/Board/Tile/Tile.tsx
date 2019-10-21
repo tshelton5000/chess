@@ -16,7 +16,7 @@ type TileProps = {
 const Tile = ({pic, x, y, setClick}: TileProps) => {
   return(
     <div key={`${x}${y}`} className="tile" onClick={() => setClick({x: x, y: y})}>
-      {pic}
+      <img src={pic} className="pic"/>
     </div>
   )
 }

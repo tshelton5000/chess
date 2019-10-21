@@ -9,13 +9,13 @@ it('pieceChooser is called with string piece type', () => {
 })
 
 it('pieceChooser returns king for king argument', () => {
-  let king = new King('WK', 'BK');
+  let king = new King('white-king.png', 'black-king.png');
   let returnPiece = pieceChooser('king');
   expect(king).toStrictEqual(returnPiece);
 })
 
 it('pieceChooser returns empty for empty argument', () => {
-  let empty = new Empty('--');
+  let empty = new Empty('');
   let returnPiece = pieceChooser('empty');
   expect(empty).toStrictEqual(returnPiece);
 })

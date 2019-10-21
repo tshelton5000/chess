@@ -5,3 +5,8 @@
   display: inline-block;
   box-sizing: border-box;
 }
+
+.pic{
+  width: 80%;
+  padding: 10%;
+}

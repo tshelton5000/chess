@@ -6,9 +6,7 @@ import Tile from './Tile/Tile';
 import inCheck from '../../PlayConditions/inCheck';
 import friendlyCanMove from '../../PlayConditions/friendlyCanMove';
 import initBoard from '../initConfig/board.json';
-import boardTest from '../initConfig/boardTest.json';
-import blackCheckBoard from '../../testBoards/blackCheckBoard.json';
-import midplayBoard from '../../testBoards/midplayBoard.json';
+import './Board.css';
 
 export interface TileConfig{
   type: string;
@@ -16,15 +14,15 @@ export interface TileConfig{
 }
 
 const Board = () => {
-  const [board, setBoard] = useState(midplayBoard);
-  const [firstClick, setFirstClick] = useState();
-  const [secondClick, setSecondClick] = useState();
+  const [board, setBoard] = useState(initBoard);
+  const [firstClick, setFirstClick] = useState({x: -1, y: -1});
+  const [secondClick, setSecondClick] = useState({x: -1, y: -1});
   const [whiteTurn, setWhiteTurn] = useState(true);
 
   useEffect(() => {
-    if (firstClick === undefined && secondClick === undefined){
+    if (firstClick.x === -1 && secondClick.x === -1){
       endChecker();
-    } else if (firstClick !== undefined && secondClick !== undefined){
+    } else if (firstClick.x !== -1 && secondClick.x !== -1){
       // console.log(pieceChooser(board[firstClick.y][firstClick.x].type))
       // console.log(pieceChooser(board[firstClick.y][firstClick.x].type).canMove(board, firstClick.x, firstClick.y, secondClick.x, secondClick.y, whiteTurn));
       boardUpdater();
@@ -56,22 +54,21 @@ const Board = () => {
         setWhiteTurn(!whiteTurn);
       }
     }
-    setFirstClick(undefined);
-    setSecondClick(undefined);
+    setFirstClick({x: -1, y: -1});
+    setSecondClick({x: -1, y: -1});
   }
 
   const clickSelector = () => {
-    return firstClick === undefined ? setFirstClick : setSecondClick;
+    return firstClick.x === -1 ? setFirstClick : setSecondClick;
   }
 
   const tileMapper = () => {
-    return board.map((row, y) => row.map((square, x) => x === 7 ? 
-    <><Tile key={`${x}${y}`} pic={pieceChooser(square.type).returnPic(square.color)} x={x} y={y} setClick={clickSelector()}/><br/></> : 
+    return board.map((row, y) => row.map((square, x) =>  
     <Tile key={`${x}${y}`} pic={pieceChooser(square.type).returnPic(square.color)} x={x} y={y} setClick={clickSelector()}/>))
   }
 
   return(
-    <div>
+    <div className="board">
       {tileMapper()}
     </div>
   )
